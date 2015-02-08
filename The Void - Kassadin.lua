@@ -5,7 +5,7 @@
 
  
 --[[		Auto Update		]]
-local sversion = "1.001"
+local sversion = "1.826"
 local AUTOUPDATE = true
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/MuMuHay/BoL-Script/master/The Void - Kassadin.lua".."?rand="..math.random(1,10000)

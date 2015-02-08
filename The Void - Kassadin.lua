@@ -121,6 +121,16 @@ function OnTick()
         -- Use orbwalk
         if menu.orbwalk then orbWalk() end
     end
+	
+    if menu.blub then
+   
+        -- Cast combo
+        blub()
+   
+        -- Use orbwalk
+        if menu.orbwalk then orbWalk() end
+    end
+   
    
 end
  
@@ -325,6 +335,17 @@ function combo()
  
 end
  
+ 
+	
+	function blub()
+		if not ValidTarget(target) then return end
+		local distance = player:GetDistance(target)
+		if (distance > rangeMax) then return end
+		if spells[Q].ready then
+		 CastSpell(Q, target)
+		end
+	end
+	
 -- ############################################################### Combo end ###############################################################
  
 -- ######################################################## Recurring checks start #########################################################
@@ -500,6 +521,9 @@ function setupMenu()
     menu.drawings:addParam("sep",        "-------- Utility --------", SCRIPT_PARAM_INFO,  "")  
     menu.drawings:addParam("showDamage", "Show damage indicator",     SCRIPT_PARAM_ONOFF, true)
    
+   -- Harass
+    menu:addParam("sep",       "-------- Harass --------", SCRIPT_PARAM_INFO, "")
+	menu:addParam("blub", "Harass with Q", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("V"))
    
     -- Options to show permanently
     menu:permaShow("useUlt")

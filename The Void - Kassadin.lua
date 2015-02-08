@@ -1,4 +1,4 @@
-local version = "1.001"
+local version = "1.021"
 
 -- Script rewrote from Nulled Kassadin by Hellsing.
 -- Made by MuMuHey

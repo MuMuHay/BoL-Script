@@ -1,11 +1,12 @@
-local version = "1.021"
+local version = "1.001"
 
 -- Script rewrote from Nulled Kassadin by Hellsing.
 -- Made by MuMuHey
--- addet Harass with Q
-
-if myHero.charName ~= "Kassadin" then return end
  
+ if myHero.charName ~= "Kassadin" then return end
+
+  
+
 ------------ Globals ------------
 local player = myHero
 local target = nil
@@ -532,6 +533,9 @@ function setupMenu()
     menu:permaShow("useUlt")
     menu:permaShow("closeGap")
     menu:permaShow("safeMode")
+   
+   print("<font color = \"#33CCCC\">The Void - Kassadin by</font> <font color = \"#fff8e7\">MuMuHey GL HF. If you like the Script like it on Scriptstatus and on the Topic <3</font>")
+
    
 end
  

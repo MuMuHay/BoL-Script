@@ -1,10 +1,37 @@
-if myHero.charName ~="JarvanIV" then return end
+if myHero.charName ~= "JarvanIV" then return end
+-- Made by MuMuHey
+ 
+--[[ More infos soooooon
 
--- Just a Simple J4 Script i will update this after Bol got Item usage back and i got the right pakets.
--- Thanks to TJarvan i learned a lot from his Scripts.
--- Thanks to Fantastik for helping me out learning Lua and ofc Hex who spend a lot of time explaining me all of them
--- 05.02.2015 addet drawings optimized EQ Combo
+ ]]--
+ 
+--[[		Auto Update		]]
+local sversion = "1.9021"
+local AUTOUPDATE = true
+local UPDATE_HOST = "raw.github.com"
+local UPDATE_PATH = "/MuMuHay/BoL-Script/master/JarvanIV - The Emporer.lua".."?rand="..math.random(1,10000)
+local UPDATE_FILE_PATH = SCRIPT_PATH..GetCurrentEnv().FILE_NAME
+local UPDATE_URL = "https://"..UPDATE_HOST..UPDATE_PATH
 
+function AutoupdaterMsg(msg) print("<font color=\"#6699ff\"><b>The Void Kassadin:</b></font> <font color=\"#FFFFFF\">"..msg..".</font>") end
+if AUTOUPDATE then
+	local ServerData = GetWebResult(UPDATE_HOST, "/MuMuHay/BoL-Script/master/version/JarvanIV - The Emporer.version")
+	if ServerData then
+		ServerVersion = type(tonumber(ServerData)) == "number" and tonumber(ServerData) or nil
+		if ServerVersion then
+			if tonumber(sversion) < ServerVersion then
+				AutoupdaterMsg("New version available"..ServerVersion)
+				AutoupdaterMsg("Updating, please don't press F9")
+				DelayAction(function() DownloadFile(UPDATE_URL, UPDATE_FILE_PATH, function () AutoupdaterMsg("Successfully updated. ("..sversion.." => "..ServerVersion.."), press F9 twice to load the updated version.") end) end, 3)
+			else
+				AutoupdaterMsg("You have got the latest version ("..ServerVersion..")")
+			end
+		end
+	else
+		AutoupdaterMsg("Error downloading version info")
+	end
+end
+ 
 
 require 'VPrediction'
 require 'SxOrbWalk'

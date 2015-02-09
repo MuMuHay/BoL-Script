@@ -36,7 +36,7 @@ Other features:
 *		Automatic statpoints assignment
 *		More to come soon!
 
-changelog v 1.827
+changelog v 1.921
 	Fixing code and giving some awesomeness from Fantastik 
 
 changelog v 1.826
@@ -63,7 +63,7 @@ changelog v 1.120
 
 
 --[[		Auto Update		]]
-local sversion = "1.827"
+local sversion = "1.921"
 local AUTOUPDATE = true
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/MuMuHay/BoL-Script/master/The Void - Kassadin.lua".."?rand="..math.random(1,10000)

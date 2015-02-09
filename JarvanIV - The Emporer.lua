@@ -6,7 +6,7 @@ if myHero.charName ~= "JarvanIV" then return end
  ]]--
  
 --[[		Auto Update		]]
-local sversion = "1.9021"
+local sversion = "1.9022"
 local AUTOUPDATE = true
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/MuMuHay/BoL-Script/master/JarvanIV - The Emporer.lua".."?rand="..math.random(1,10000)
@@ -98,8 +98,8 @@ function Variables()
 	
 	AARange = 175
 	
-	Qrange = 700
-	Qwidth = 70 
+	Qrange = 680
+	Qwidth = 50 
 	Qspeed = math.huge
 	Qdelay = 0.5
 	

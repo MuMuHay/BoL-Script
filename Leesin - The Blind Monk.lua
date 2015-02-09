@@ -1,24 +1,15 @@
--- Version 1.0 Lee Sin The Blind Monk by MuMuHeY rework from Hunters Insec Lee Sin
--- beta 1.0
---[[
-
-im still im improving it. but for now u can use it. not much changed yet.
-Thanks to DEVN ItemFix which i involved into this script wardjump and Items working.
-Also Insec should work fine.
-
-]]--
-
--- Version 1.0 Lee Sin The Blind Monk by MuMuHeY rework from Hunters Insec Lee Sin
--- beta 1.0
---[[
-
-im still im improving it. but for now u can use it. not much changed yet.
-Thanks to DEVN ItemFix which i involved into this script wardjump and Items working.
-Also Insec should work fine.
-
-]]--
 
 if myHero.charName ~= "LeeSin" then return end
+
+-- Version 1.0 Lee Sin The Blind Monk by MuMuHeY rework from Hunters Insec Lee Sin
+-- beta 1.0
+--[[
+
+im still im improving it. but for now u can use it. not much changed yet.
+Thanks to DEVN ItemFix which i involved into this script wardjump and Items working.
+Also Insec should work fine.
+
+]]--
 
 
 

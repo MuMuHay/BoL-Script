@@ -57,7 +57,7 @@ function OnLoad()
 	Menu:permaShow("harass")
 	Menu:permaShow("wardJump")
 	
-	PrintChat(" >> Lee Sin - The Blind Monk")
+	PrintChat(" >> Lee Sin - The Blind Monk by MuMuHey")
 	
 	ItemNames				= {
 		[3303]				= "ArchAngelsDummySpell",

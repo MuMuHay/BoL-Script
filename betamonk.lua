@@ -143,7 +143,7 @@ function setupVars()
         SkillR =    {range = xx, name = "",     ready = false,   delay = xx,   Speed = xx,    )   }
 
       
-
+end
 
 
 

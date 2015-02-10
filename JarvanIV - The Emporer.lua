@@ -6,7 +6,7 @@ if myHero.charName ~= "JarvanIV" then return end
  ]]--
  
 --[[    Auto Update   ]]
-local sversion = "1.9102"
+local sversion = "1.9103"
 local AUTOUPDATE = true
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/MuMuHay/BoL-Script/master/JarvanIV - The Emporer.lua".."?rand="..math.random(1,10000)
@@ -83,21 +83,21 @@ function OnLoad()
     Menu.Harass:addParam("ahMana", "Auto-Harass if mana is over %", SCRIPT_PARAM_SLICE, 20, 0, 100, 0)
   
 
-  Menu:addSubMenu("[JarvanIV - Extras]", "Ext")
+  Menu:addSubMenu("[Extras]", "Ext")
     Menu.Ext:addParam("EQcommand", "EQ Escape Key", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("G"))
 
-  Menu:addSubMenu("[JarvanIV - Drawings]", "drawings")
+  Menu:addSubMenu("[Drawings]", "drawings")
     Menu.drawings:addParam("drawCircleAA", "Draw AA Range", SCRIPT_PARAM_ONOFF, true)
     Menu.drawings:addParam("drawCircleEQ", "Draw EQ Range", SCRIPT_PARAM_ONOFF, true)
     Menu.drawings:addParam("drawCircleR", "Draw R Range", SCRIPT_PARAM_ONOFF, true)
 
-  Menu:addSubMenu("[JarvanIV - Ult Blacklist]", "ultb")
+  Menu:addSubMenu("[Ult Blacklist]", "ultb")
     for i, enemy in pairs(GetEnemyHeroes()) do
     Menu.ultb:addParam(enemy.charName, "Use ult on: "..enemy.charName, SCRIPT_PARAM_ONOFF, true)
     end
 
 
-    Menu:addSubMenu("[JarvanIV - Target Selector]", "targetSelector")
+    Menu:addSubMenu("[Target Selector]", "targetSelector")
     Menu.targetSelector:addTS(ts)
     ts.name = "Focus"
   

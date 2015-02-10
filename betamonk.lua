@@ -56,8 +56,8 @@ end
 -- handles script logic, a pure high speed loop
 function OnTick()
 
-if ts.target and ts.target.type == myHero.type then print(ts.target.charName) end
-if ts target and ts.target.type == myHero.type then DrawLine3Dcustom(ts.target.x) end
+--if ts.target and ts.target.type == myHero.type then print(ts.target.charName) end
+--if ts target and ts.target.type == myHero.type then DrawLine3Dcustom(ts.target.x) end
 
 end
 
@@ -128,10 +128,10 @@ function setupVars()
     
     -- Skill Table --
     
-        SkillQ =    {range = xx, name = "",     ready = false,   delay = xx,   Speed = xx,    )   }
-        SkillW =    {range = xx, name = "",     ready = false,   delay = xx,   Speed = xx,    )   }
-        SkillE =    {range = xx, name = "",     ready = false,   delay = xx,   Speed = xx,    )   }
-        SkillR =    {range = xx, name = "",     ready = false,   delay = xx,   Speed = xx,    )   }
+        SkillQ =    {name = , range = xx, delay = xx,   Speed = xx,  ready = false    }
+        SkillW =    {name = , range = xx, delay = xx,   Speed = xx,  ready = false    }
+        SkillE =    {name = , range = xx, delay = xx,   Speed = xx,  ready = false    }
+        SkillR =    {name = , range = xx, delay = xx,   Speed = xx,  ready = false    }
 
       
 end

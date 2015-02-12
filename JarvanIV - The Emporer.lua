@@ -6,7 +6,7 @@ if myHero.charName ~= "JarvanIV" then return end
  ]]--
  
 --[[    Auto Update   ]]
-local sversion = "1.9105"
+local sversion = "1.1221"
 local AUTOUPDATE = true
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/MuMuHay/BoL-Script/master/JarvanIV - The Emporer.lua".."?rand="..math.random(1,10000)
@@ -81,6 +81,21 @@ function OnLoad()
     Menu.Harass:addParam("harass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("C"))
     Menu.Harass:addParam("autoharass", "Auto-Harass", SCRIPT_PARAM_ONKEYTOGGLE, false, string.byte("Y"))
     Menu.Harass:addParam("ahMana", "Auto-Harass if mana is over %", SCRIPT_PARAM_SLICE, 20, 0, 100, 0)
+  
+  
+  Menu:addSubMenu("[Laneclear]", "LaneClear")
+	Menu.LaneClear:addParam("laneClear", "Laneclear with spells", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("N"))
+	Menu.LaneClear:addParam("laneclearQ", "Use Q in Laneclear", SCRIPT_PARAM_ONOFF, true)
+	Menu.LaneClear:addParam("laneclearE", "Use E in Laneclear", SCRIPT_PARAM_ONOFF, true)
+	Menu.LaneClear:addParam("lclrMana", "Use Spells if mana is over %", SCRIPT_PARAM_SLICE, 20, 0, 100, 0)
+	
+  Menu:addSubMenu("[JungleClear]", "JungleClear")
+	Menu.JungleClear:addParam("jungleclear", "Jungleclear with spells", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("N"))
+	Menu.JungleClear:addParam("jungleclearQ", "Use Q in Jungleclear", SCRIPT_PARAM_ONOFF, true)
+	Menu.JungleClear:addParam("jungleclearE", "Use E in Jungleclear", SCRIPT_PARAM_ONOFF, true)
+	Menu.JungleClear:addParam("jungleclearW", "Use W in Jungleclear", SCRIPT_PARAM_ONOFF, true)
+	Menu.JungleClear:addParam("jungleclearMana", "Use Spells if mana is over %", SCRIPT_PARAM_SLICE, 20, 0, 100, 0)
+	
   
 
   Menu:addSubMenu("[Extras]", "Ext")
@@ -195,6 +210,15 @@ function OnTick()
      useAutoHarass()
   end
   
+  
+	if Menu.LaneClear.laneclearQ and Menu.LaneClear.laneClear then
+		lclr()
+	end
+	
+	if Menu.JungleClear.jungleclear then
+		JungleClear()
+	end  
+  
   if UltActive then
     if CountEnemyHeroInRange(Rwidth) == 0 then
       CastSpell(_R)
@@ -218,6 +242,22 @@ function JarvanCombo()
     ComboR()
   end
 end
+
+
+function lclr()
+	if jungleMinion == nil then
+		for i, minion in pairs(EnemyMinions.objects) do
+			if minion ~= nil and ValidTarget(minion, 700) then
+				local CastPosition, HitChance, Position = VP:GetLineCastPosition(minion, 0.5, 70, 700, 1000, myHero, false)
+				if HitChance >= 2 and Qready and GetDistance(CastPosition) < 700 and ManaCheck(myHero, Menu.LaneClear.lclrMana) == false then
+					CastSpell(_Q, CastPosition.x, CastPosition.z)
+				end
+				CastSpell(_E, minion.x, minion.z)
+			end
+		end
+	end
+end
+
 
 
 function useHarass()
@@ -281,6 +321,31 @@ function ComboEQ()
       end
     end
   end
+end
+
+
+function JungleClear()
+	for i, jungleMinion in pairs(jungleMinions.objects) do
+		if jungleMinion ~= nil then
+			if Eready and Qready and Menu.JungleClear.jungleclearQ and Menu.JungleClear.jungleclearE and ManaCheck(myHero, Menu.JungleClear.jungleclearMana) == false then
+				if ValidTarget(jungleMinion, Erange) then
+					CastSpell(_E, jungleMinion.x, jungleMinion.z)
+					CastSpell(_Q, jungleMinion.x, jungleMinion.z)
+				end
+			else
+				if Menu.JungleClear.jungleclearQ and ManaCheck(myHero, Menu.JungleClear.jungleclearMana) == false and ValidTarget(jungleMinion, Qrange) and Qready then
+					CastSpell(_Q, jungleMinion.x, jungleMinion.z)
+				end
+				
+				if Menu.JungleClear.jungleclearE and ManaCheck(myHero, Menu.JungleClear.jungleclearMana) == false and ValidTarget(jungleMinion, Erange) and Eready then
+					CastSpell(_E, jungleMinion)
+				end
+			end
+			if Menu.JungleClear.jungleclearW and ManaCheck(myHero, Menu.JungleClear.jungleclearMana) == false and ValidTarget(jungleMinion, Wrange) and Wready then
+				CastSpell(_W)
+			end
+		end
+	end
 end
 
 

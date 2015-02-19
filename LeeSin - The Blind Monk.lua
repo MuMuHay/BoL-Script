@@ -45,7 +45,7 @@ if myHero.charName ~= "LeeSin" then return end
 
 
 --[[ Auto Update ]]
-local sversion = "1.0.5"
+local sversion = "1.05"
 local AUTOUPDATE = true
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/MuMuHay/BoL-Script/master/LeeSin - The Blind Monk.lua".."?rand="..math.random(1,10000)

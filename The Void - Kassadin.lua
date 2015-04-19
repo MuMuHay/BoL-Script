@@ -63,14 +63,14 @@ changelog v 1.120
 
 
 --[[		Auto Update		]]
-local sversion = "1.921"
+local sversion = "2.1"
 local AUTOUPDATE = true
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/MuMuHay/BoL-Script/master/The Void - Kassadin.lua".."?rand="..math.random(1,10000)
 local UPDATE_FILE_PATH = SCRIPT_PATH..GetCurrentEnv().FILE_NAME
 local UPDATE_URL = "https://"..UPDATE_HOST..UPDATE_PATH
 
-function AutoupdaterMsg(msg) print("<font color=\"#6699ff\"><b>The Void Kassadin:</b></font> <font color=\"#FFFFFF\">"..msg..".</font>") end
+function AutoupdaterMsg(msg) print("<font color=\"#6699ff\"><b>The Void Kassadin: Ver 2.1</b></font> <font color=\"#FFFFFF\">"..msg..".</font>") end
 if AUTOUPDATE then
 	local ServerData = GetWebResult(UPDATE_HOST, "/MuMuHay/BoL-Script/master/version/The Void - Kassadin.version")
 	if ServerData then
@@ -110,9 +110,9 @@ local lastWindUpTime = 0
 local lastAttackCD   = 0
  
 local spells = {[_Q] = { range = 650, level = 0, ready = false, manaUsage = 0, cooldown = 0 },
-                [_W] = { range = 200, level = 0, ready = false, manaUsage = 0, cooldown = 0 },
+                [_W] = { level = 0, ready = false, manaUsage = 0, cooldown = 0 },
                 [_E] = { range = 650, level = 0, ready = false, manaUsage = 0, cooldown = 0 },
-                [_R] = { range = 700, level = 0, ready = false, manaUsage = 0, cooldown = 0 }}
+                [_R] = { range = 500, level = 0, ready = false, manaUsage = 0, cooldown = 0 }}
  
 local hasIgnite    = false
 local slotIgnite   = nil
@@ -128,7 +128,7 @@ local gainedBuffR = false
 ------------ Constants ------------
 local Q, W, E, R = _Q, _W, _E, _R
  
-local rangeIgnite = 600
+local rangeIgnite = 500
 local rangeMax    = spells[R].range + spells[Q].range
  
 local colorRangeReady        = ARGB(255, 200, 0,   200)

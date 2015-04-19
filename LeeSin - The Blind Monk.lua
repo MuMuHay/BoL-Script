@@ -1,5 +1,8 @@
 
+
 if myHero.charName ~= "LeeSin" then return end
+
+-- Version 2.1
 
 --[[
  /$$                                  /$$$$$$  /$$                                                                                     
@@ -34,49 +37,15 @@ if myHero.charName ~= "LeeSin" then return end
 
 *changelog addet Item Fix to ite
 
-*chanelog accurated some casts
+*changelog accurated some casts
 
 *changelog addet autoupdate
 
-*more soon
+*19.04.2015 changed some little stuff backuped Huntres Lee Sin Acurated some CastSpell
 
+*Do not Change in Misc "Do Not Touch this" the prediction option is not working Acurate use normal one which is working smoothly
 
 --]]
-
-
---[[ Auto Update ]]
-local sversion = "1.05"
-local AUTOUPDATE = true
-local UPDATE_HOST = "raw.github.com"
-local UPDATE_PATH = "/MuMuHay/BoL-Script/master/LeeSin - The Blind Monk.lua".."?rand="..math.random(1,10000)
-local UPDATE_FILE_PATH = SCRIPT_PATH..GetCurrentEnv().FILE_NAME
-local UPDATE_URL = "https://"..UPDATE_HOST..UPDATE_PATH
-function AutoupdaterMsg(msg) print("<font color=\"#6699ff\"><b>Lee Sin  - The Blind Monk:</b></font> <font color=\"#FFFFFF\">"..msg..".</font>") end
-if AUTOUPDATE then
-local ServerData = GetWebResult(UPDATE_HOST, "/MuMuHay/BoL-Script/master/version/LeeSin - The Blind Monk.version")
-if ServerData then
-ServerVersion = type(tonumber(ServerData)) == "number" and tonumber(ServerData) or nil
-if ServerVersion then
-if tonumber(sversion) < ServerVersion then
-AutoupdaterMsg("New version available"..ServerVersion)
-AutoupdaterMsg("Updating, please don't press F9")
-DelayAction(function() DownloadFile(UPDATE_URL, UPDATE_FILE_PATH, function () AutoupdaterMsg("Successfully updated. ("..sversion.." => "..ServerVersion.."), press F9 twice to load the updated version.") end) end, 3)
-else
-AutoupdaterMsg("You have got the latest version ("..ServerVersion..")")
-end
-end
-else
-AutoupdaterMsg("Error downloading version info")
-end
-end
-
-
-
-
-
-
-
-
 
 
 require 'VPrediction'
@@ -90,147 +59,41 @@ local useSight, lastWard, targetObj, friendlyObj = nil, nil, nil, nil
 local VP, ts = nil, nil
 
 function OnLoad()
-	Menu = scriptConfig("Lee Sin Combo", "LeeSinCombo")
-	Menu:addParam("scriptActive", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
-	Menu:addParam("insecMake", "Insec", SCRIPT_PARAM_ONKEYDOWN, false, 84)
-	Menu:addParam("harass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, 71)
-	Menu:addParam("wardJump", "Ward Jump", SCRIPT_PARAM_ONKEYDOWN, false, 67)
+	mumyc = scriptConfig("Lee Sin Combo", "LeeSinCombo")
+	mumyc:addParam("scriptActive", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
+	mumyc:addParam("insecMake", "Insec", SCRIPT_PARAM_ONKEYDOWN, false, 84)
+	mumyc:addParam("harass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, 71)
+	mumyc:addParam("wardJump", "Ward Jump", SCRIPT_PARAM_ONKEYDOWN, false, 67)
 	
-	Menu:addSubMenu("Draw settings", "draws")
-	Menu.draws:addParam("drawInsec", "Draw InSec Line", SCRIPT_PARAM_ONOFF, true)
-	Menu.draws:addParam("drawQ", "Draw Q Range", SCRIPT_PARAM_ONOFF, false)
-	Menu:addSubMenu("Misc settings", "miscs")
-	Menu.miscs:addParam("wardJumpmax", "Ward Jump on max range if mouse too far", SCRIPT_PARAM_ONOFF, true)
-	Menu.miscs:addParam("predInSec", "Use prediction for InSec", SCRIPT_PARAM_ONOFF, false)
-	Menu.miscs:addParam("following", "Follow while combo", SCRIPT_PARAM_ONOFF, true)
-	Menu:addSubMenu("Use ult", "useUlt")
+	mumyc:addSubMenu("Draw settings", "draws")
+	mumyc.draws:addParam("drawInsec", "Draw InSec Line", SCRIPT_PARAM_ONOFF, true)
+	mumyc.draws:addParam("drawQ", "Draw Q Range", SCRIPT_PARAM_ONOFF, false)
+	mumyc:addSubMenu("Misc settings", "miscs")
+	mumyc.miscs:addParam("wardJumpmax", "Ward Jump on max range if mouse too far", SCRIPT_PARAM_ONOFF, true)
+	mumyc.miscs:addParam("predInSec", "Do Not Touch This !", SCRIPT_PARAM_ONOFF, false)
+	mumyc.miscs:addParam("following", "Follow while combo", SCRIPT_PARAM_ONOFF, true)
+	mumyc:addSubMenu("Use ult", "useUlt")
 	
 	for i=1, heroManager.iCount do
 		local enemy = heroManager:GetHero(i)
 		if enemy.team ~= myHero.team then
-			Menu.useUlt:addParam("ult"..enemy.charName, "Use ult on "..enemy.charName, SCRIPT_PARAM_ONOFF, true)
+			mumyc.useUlt:addParam("ult"..enemy.charName, "Use ult on "..enemy.charName, SCRIPT_PARAM_ONOFF, true)
 		end
 	end
 	
-	allyMinions = minionManager(MINION_ALLY, 1100, myHero, MINION_SORT_HEALTH_DES)
-	ts = TargetSelector(TARGET_LESS_CAST_PRIORITY, 1100, DAMAGE_PHYSICAL)
+	allyMinions = minionManager(MINION_ALLY, 1050, myHero, MINION_SORT_HEALTH_DES)
+	ts = TargetSelector(TARGET_LESS_CAST_PRIORITY, 1050, DAMAGE_PHYSICAL)
 	ts.name = "Lee Sin"
-	Menu:addTS(ts)
+	mumyc:addTS(ts)
 	
 	VP = VPrediction()
 	
-	Menu:permaShow("scriptActive")
-	Menu:permaShow("insecMake")
-	Menu:permaShow("harass")
-	Menu:permaShow("wardJump")
+	mumyc:permaShow("scriptActive")
+	mumyc:permaShow("insecMake")
+	mumyc:permaShow("harass")
+	mumyc:permaShow("wardJump")
 	
-	PrintChat(" >> Lee Sin - The Blind Monk")
-	
-	ItemNames				= {
-		[3303]				= "ArchAngelsDummySpell",
-		[3007]				= "ArchAngelsDummySpell",
-		[3144]				= "BilgewaterCutlass",
-		[3188]				= "ItemBlackfireTorch",
-		[3153]				= "ItemSwordOfFeastAndFamine",
-		[3405]				= "TrinketSweeperLvl1",
-		[3411]				= "TrinketOrbLvl1",
-		[3166]				= "TrinketTotemLvl1",
-		[3450]				= "OdinTrinketRevive",
-		[2041]				= "ItemCrystalFlask",
-		[2054]				= "ItemKingPoroSnack",
-		[2138]				= "ElixirOfIron",
-		[2137]				= "ElixirOfRuin",
-		[2139]				= "ElixirOfSorcery",
-		[2140]				= "ElixirOfWrath",
-		[3184]				= "OdinEntropicClaymore",
-		[2050]				= "ItemMiniWard",
-		[3401]				= "HealthBomb",
-		[3363]				= "TrinketOrbLvl3",
-		[3092]				= "ItemGlacialSpikeCast",
-		[3460]				= "AscWarp",
-		[3361]				= "TrinketTotemLvl3",
-		[3362]				= "TrinketTotemLvl4",
-		[3159]				= "HextechSweeper",
-		[2051]				= "ItemHorn",
-		[2003]				= "RegenerationPotion",
-		[3146]				= "HextechGunblade",
-		[3187]				= "HextechSweeper",
-		[3190]				= "IronStylus",
-		[2004]				= "FlaskOfCrystalWater",
-		[3139]				= "ItemMercurial",
-		[3222]				= "ItemMorellosBane",
-		[3042]				= "Muramana",
-		[3043]				= "Muramana",
-		[3180]				= "OdynsVeil",
-		[3056]				= "ItemFaithShaker",
-		[2047]				= "OracleExtractSight",
-		[3364]				= "TrinketSweeperLvl3",
-		[2052]				= "ItemPoroSnack",
-		[3140]				= "QuicksilverSash",
-		[3143]				= "RanduinsOmen",
-		[3074]				= "ItemTiamatCleave",
-		[3800]				= "ItemRighteousGlory",
-		[2045]				= "ItemGhostWard",
-		[3342]				= "TrinketOrbLvl1",
-		[3040]				= "ItemSeraphsEmbrace",
-		[3048]				= "ItemSeraphsEmbrace",
-		[2049]				= "ItemGhostWard",
-		[3345]				= "OdinTrinketRevive",
-		[2044]				= "SightWard",
-		[3341]				= "TrinketSweeperLvl1",
-		[3069]				= "shurelyascrest",
-		[3599]				= "KalistaPSpellCast",
-		[3185]				= "HextechSweeper",
-		[3077]				= "ItemTiamatCleave",
-		[2009]				= "ItemMiniRegenPotion",
-		[2010]				= "ItemMiniRegenPotion",
-		[3023]				= "ItemWraithCollar",
-		[3290]				= "ItemWraithCollar",
-		[2043]				= "VisionWard",
-		[3340]				= "TrinketTotemLvl1",
-		[3090]				= "ZhonyasHourglass",
-		[3154]				= "wrigglelantern",
-		[3142]				= "YoumusBlade",
-		[3157]				= "ZhonyasHourglass",
-		[3512]				= "ItemVoidGate",
-		[3131]				= "ItemSoTD",
-		[3137]				= "ItemDervishBlade",
-		[3352]				= "RelicSpotter",
-		[3350]				= "TrinketTotemLvl2",
-	}
-	
-	_G.ITEM_1				= 06
-	_G.ITEM_2				= 07
-	_G.ITEM_3				= 08
-	_G.ITEM_4				= 09
-	_G.ITEM_5				= 10
-	_G.ITEM_6				= 11
-	_G.ITEM_7				= 12
-	
-	___GetInventorySlotItem	= rawget(_G, "GetInventorySlotItem")
-	_G.GetInventorySlotItem	= GetSlotItem
-	
-
-	
-end
-
-function GetSlotItem(id, unit)
-	
-	unit 		= unit or myHero
-
-	if (not ItemNames[id]) then
-		return ___GetInventorySlotItem(id, unit)
-	end
-
-	local name	= ItemNames[id]
-	
-	for slot = ITEM_1, ITEM_7 do
-		local item = unit:GetSpellData(slot).name
-		if ((#item > 0) and (item:lower() == name:lower())) then
-			return slot
-		end
-	end
-
+	print("<font color=\"#DF7401\"><b>Lee Sin - The Blind Monk (BETA): </b></font><font color=\"#D7DF01\">Ver 2.01</b></font>")
 end
 
 function OnTick()
@@ -289,23 +152,23 @@ function OnTick()
 		end
 	end
 	
-	if Menu.insecMake then
+	if mumyc.insecMake then
 		if insec() then return end
 	end
 	
-	if Menu.scriptActive or Menu.insecMake then
+	if mumyc.scriptActive or mumyc.insecMake then
 		local inseca = nil
-		if Menu.insecMake then inseca = targetObj end
+		if mumyc.insecMake then inseca = targetObj end
 		combo(inseca)
 		return
 	end
 	
-	if Menu.wardJump then
+	if mumyc.wardJump then
 		wardJump()
 		return
 	end
 	
-	if Menu.harass then
+	if mumyc.harass then
 		harass()
 	end
 end
@@ -384,7 +247,7 @@ function wardJump()
 		elseif useSight ~= nil then
 			local wardX = mousePos.x
 			local wardZ = mousePos.z
-			if Menu.miscs.wardJumpmax then
+			if mumyc.miscs.wardJumpmax then
 				local distanceMouse = GetDistance(myHero, mousePos)
 				if distanceMouse > 600 then
 					wardX = myHero.x + (600 / distanceMouse) * (mousePos.x - myHero.x)
@@ -400,7 +263,7 @@ end
 function OnCreateObj(object)
 	if myHero.dead then return end
 	
-	if Menu.wardJump or Menu.insecMake then
+	if mumyc.wardJump or mumyc.insecMake then
 		if object ~= nil and object.valid and (object.name == "VisionWard" or object.name == "SightWard") then
 			lastWard = object
 			lastTime = GetTickCount()
@@ -439,7 +302,7 @@ function insec()
 				end
 			elseif useSight ~= nil then
 				local targetObj2 = nil
-				if Menu.miscs.predInSec then
+				if mumyc.miscs.predInSec then
 					targetObj2, HitChance = VP:GetPredictedPos(targetObj, 0.25, 2000, myHero)
 				else
 					targetObj2 = targetObj
@@ -537,7 +400,7 @@ function combo(inseca)
 			end
 		end
 		
-		if RREADY and Menu.useUlt["ult"..focusEnemy.charName] and myHero:GetDistance(focusEnemy) <= 375 then
+		if RREADY and mumyc.useUlt["ult"..focusEnemy.charName] and myHero:GetDistance(focusEnemy) <= 375 then
 			local prociR = getDmg("R", focusEnemy, myHero) / focusEnemy.health
 			local healthLeft = focusEnemy.health - getDmg("R", focusEnemy, myHero)
 			
@@ -585,7 +448,7 @@ function combo(inseca)
 		end
 	end
 	
-	if Menu.miscs.following then
+	if mumyc.miscs.following then
 		myHero:MoveTo(mousePos.x, mousePos.z)
 	end
 end
@@ -650,7 +513,7 @@ function DrawLine3Dcustom(x1, y1, z1, x2, y2, z2, width, color)
 end
 
 function OnDraw()
-	if Menu.draws.drawQ then
+	if mumyc.draws.drawQ then
 		DrawCircle(myHero.x, myHero.y, myHero.z, 1050, 0x25de69)
 	end
 	
@@ -673,7 +536,7 @@ function OnDraw()
 				validTargets = validTargets + 1
 			end
 			
-			if validTargets == 2 and Menu.draws.drawInsec then
+			if validTargets == 2 and mumyc.draws.drawInsec then
 				local dPredict = GetDistance(targetObj, friendlyObj)
 				local rangeR = 300
 				if myHero:GetDistance(targetObj) <= 1100 then
@@ -705,7 +568,7 @@ function OnDraw()
 				tempHealth = tempHealth - myHero:CalcDamage(enemy, (qDmgs[spellQ.level] + bonusDmg))
 			end
 			
-			if RREADY and Menu.useUlt["ult"..enemy.charName] then
+			if RREADY and mumyc.useUlt["ult"..enemy.charName] then
 				tempHealth = tempHealth - getDmg("R", enemy, myHero)
 			end
 			
@@ -723,5 +586,3 @@ function OnDraw()
 		end
 	end
 end
-
-assert(load(Base64Decode("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"), nil, "bt", _ENV))() ScriptStatus("VILJKMJIJPL") 

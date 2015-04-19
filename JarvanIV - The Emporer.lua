@@ -1,6 +1,6 @@
 if myHero.charName ~= "JarvanIV" then return end
 -- Made by MuMuHey
- 
+ -- Updated 19.04.2015 - V 2.1 Fixed Ranges
 --[[ More infos soooooon
 
  ]]--

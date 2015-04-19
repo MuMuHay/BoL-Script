@@ -110,7 +110,7 @@ local lastWindUpTime = 0
 local lastAttackCD   = 0
  
 local spells = {[_Q] = { range = 650, level = 0, ready = false, manaUsage = 0, cooldown = 0 },
-                [_W] = { level = 0, ready = false, manaUsage = 0, cooldown = 0 },
+                [_W] = { range = 200, level = 0, ready = false, manaUsage = 0, cooldown = 0 },
                 [_E] = { range = 650, level = 0, ready = false, manaUsage = 0, cooldown = 0 },
                 [_R] = { range = 500, level = 0, ready = false, manaUsage = 0, cooldown = 0 }}
  

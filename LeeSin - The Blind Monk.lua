@@ -2,7 +2,7 @@
 
 if myHero.charName ~= "LeeSin" then return end
 
--- Version 2.1
+-- Version 2.26
 -- Scriptstatus --
 assert(load(Base64Decode("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"), nil, "bt", _ENV))() ScriptStatus("WJMKLNKJKQM") 
 	
@@ -96,6 +96,114 @@ function OnLoad()
 	mumyc:permaShow("wardJump")
 	
 	print("<font color=\"#DF7401\"><b>Lee Sin - The Blind Monk (BETA): </b></font><font color=\"#D7DF01\">Ver 2.01</b></font>")
+	
+	ItemNames				= {
+		[3303]				= "ArchAngelsDummySpell",
+		[3007]				= "ArchAngelsDummySpell",
+		[3144]				= "BilgewaterCutlass",
+		[3188]				= "ItemBlackfireTorch",
+		[3153]				= "ItemSwordOfFeastAndFamine",
+		[3405]				= "TrinketSweeperLvl1",
+		[3411]				= "TrinketOrbLvl1",
+		[3166]				= "TrinketTotemLvl1",
+		[3450]				= "OdinTrinketRevive",
+		[2041]				= "ItemCrystalFlask",
+		[2054]				= "ItemKingPoroSnack",
+		[2138]				= "ElixirOfIron",
+		[2137]				= "ElixirOfRuin",
+		[2139]				= "ElixirOfSorcery",
+		[2140]				= "ElixirOfWrath",
+		[3184]				= "OdinEntropicClaymore",
+		[2050]				= "ItemMiniWard",
+		[3401]				= "HealthBomb",
+		[3363]				= "TrinketOrbLvl3",
+		[3092]				= "ItemGlacialSpikeCast",
+		[3460]				= "AscWarp",
+		[3361]				= "TrinketTotemLvl3",
+		[3362]				= "TrinketTotemLvl4",
+		[3159]				= "HextechSweeper",
+		[2051]				= "ItemHorn",
+		--[2003]			= "RegenerationPotion",
+		[3146]				= "HextechGunblade",
+		[3187]				= "HextechSweeper",
+		[3190]				= "IronStylus",
+		[2004]				= "FlaskOfCrystalWater",
+		[3139]				= "ItemMercurial",
+		[3222]				= "ItemMorellosBane",
+		[3042]				= "Muramana",
+		[3043]				= "Muramana",
+		[3180]				= "OdynsVeil",
+		[3056]				= "ItemFaithShaker",
+		[2047]				= "OracleExtractSight",
+		[3364]				= "TrinketSweeperLvl3",
+		[2052]				= "ItemPoroSnack",
+		[3140]				= "QuicksilverSash",
+		[3143]				= "RanduinsOmen",
+		[3074]				= "ItemTiamatCleave",
+		[3800]				= "ItemRighteousGlory",
+		[2045]				= "ItemGhostWard",
+		[3342]				= "TrinketOrbLvl1",
+		[3040]				= "ItemSeraphsEmbrace",
+		[3048]				= "ItemSeraphsEmbrace",
+		[2049]				= "ItemGhostWard",
+		[3345]				= "OdinTrinketRevive",
+		[2044]				= "SightWard",
+		[3341]				= "TrinketSweeperLvl1",
+		[3069]				= "shurelyascrest",
+		[3599]				= "KalistaPSpellCast",
+		[3185]				= "HextechSweeper",
+		[3077]				= "ItemTiamatCleave",
+		[2009]				= "ItemMiniRegenPotion",
+		[2010]				= "ItemMiniRegenPotion",
+		[3023]				= "ItemWraithCollar",
+		[3290]				= "ItemWraithCollar",
+		[2043]				= "VisionWard",
+		[3340]				= "TrinketTotemLvl1",
+		[3090]				= "ZhonyasHourglass",
+		[3154]				= "wrigglelantern",
+		[3142]				= "YoumusBlade",
+		[3157]				= "ZhonyasHourglass",
+		[3512]				= "ItemVoidGate",
+		[3131]				= "ItemSoTD",
+		[3137]				= "ItemDervishBlade",
+		[3352]				= "RelicSpotter",
+		[3350]				= "TrinketTotemLvl2",
+	}
+	
+	_G.ITEM_1				= 06
+	_G.ITEM_2				= 07
+	_G.ITEM_3				= 08
+	_G.ITEM_4				= 09
+	_G.ITEM_5				= 10
+	_G.ITEM_6				= 11
+	_G.ITEM_7				= 12
+	
+	___GetInventorySlotItem	= rawget(_G, "GetInventorySlotItem")
+	_G.GetInventorySlotItem	= GetSlotItem
+	
+	PrintChat("Item Casting Temp-Fix by Devn!")
+	
+end
+
+function GetSlotItem(id, unit)
+	
+	unit 		= unit or myHero
+
+	if (not ItemNames[id]) then
+		return ___GetInventorySlotItem(id, unit)
+	end
+
+	local name	= ItemNames[id]
+	
+	for slot = ITEM_1, ITEM_7 do
+		local item = unit:GetSpellData(slot).name
+		if ((#item > 0) and (item:lower() == name:lower())) then
+			return slot
+		end
+	end
+
+
+
 end
 
 function OnTick()
